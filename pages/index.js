@@ -42,7 +42,7 @@ export default function Home() {
     let url = `http://localhost:5000/v1/posts/public/webPosts`
     const resultPost = await ( await axios.get(url)).data
     setPosts(resultPost);
-    let latesturl = `http://localhost:5000/v1/posts/public/webPosts/?sortBy=_id:desc`
+    let latesturl = `http://localhost:5000/v1/posts/public/webPosts/?sortBy=_id:desc&page=1&limit=6`
     const latestPost = await ( await axios.get(latesturl)).data
     setLatestPosts(latestPost);
   }
@@ -53,7 +53,7 @@ export default function Home() {
     const resultCategories = await ( await axios.get(url)).data
     setCategory(resultCategories);
 
-    let livingURL = `http://localhost:5000/v1/posts/public/webPosts?category=${resultCategories?.results[0].id}`
+    let livingURL = `http://localhost:5000/v1/posts/public/webPosts/?page=1&limit=5&category=${resultCategories?.results[0].id}`
     const resultPost = await ( await axios.get(livingURL)).data
     setLivingPosts(resultPost);
 
@@ -62,7 +62,7 @@ export default function Home() {
     setGadgetPosts(gadgetPost);
 
     let Id = id ? id : resultCategories?.results[2].id
-    let changeURL = `http://localhost:5000/v1/posts/public/webPosts?category=${Id}`
+    let changeURL = `http://localhost:5000/v1/posts/public/webPosts/?page=1&limit=5&category=${Id}`
     const changePost = await ( await axios.get(changeURL)).data
     setChangePost(changePost);
     
@@ -173,7 +173,7 @@ export default function Home() {
                             <Link href={`/categories/${data.category.id}`} style={{textDecoration: 'none'}}>
                               <span className={data.category.name}>{data.category.name}</span>
                             </Link>
-                            <Link className='link' href={`/posts/${data.id}`}>{data.title}</Link>
+                            <Link className='link' href={`/posts/${data.id}`}>{(data.title).slice(0, 45)}...</Link>
                           </div>
                         </div>
                       ))
@@ -251,7 +251,7 @@ export default function Home() {
                         </div>
                         <Link href={`/categories/${data.category.id}`} className='cate'>{data.category.name}</Link>
                         <div className="living-text">
-                          <Link className='link' href={`/posts/${data.id}`}>{data.title}</Link>
+                          <Link className='link' href={`/posts/${data.id}`}>{(data.title).slice(0,70)}...</Link>
                           <span>{data.userId.name}<p>.</p>{format(data.createdAt)}</span>
                         </div>
                       </div>

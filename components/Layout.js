@@ -20,7 +20,6 @@ const Layout = ({ children }) => {
           <span>
             <a href="https://www.linkedin.com/in/myo-aung-2a374823b/"><i className="bi bi-linkedin"></i></a>
             <a href="https://github.com/myoaung1234"><i className="bi bi-github"></i></a>
-            <a className="bi bi-twitch"></a>
           </span>
         </div>
       </div>

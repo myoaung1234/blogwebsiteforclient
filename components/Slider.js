@@ -24,10 +24,21 @@ const Slider = () => {
     <>
         <div className="slider-container">
           <Swiper
-            slidesPerView={3}
+            slidesPerView="auto"
             loop={true}
             autoplay={{
               delay: 4000
+            }}
+            breakpoints={{
+              340: {
+                slidesPerView: 1
+              },
+              620: {
+                slidesPerView: 2
+              },
+              975: {
+                slidesPerView: 3
+              }
             }}
           >
             {

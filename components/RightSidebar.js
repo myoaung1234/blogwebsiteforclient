@@ -118,32 +118,32 @@ const RightSidebar = () => {
                 </div>
             </div>
             <div className='quotes_text'>
-            <Swiper
-                slidesPerView={1}
-                loop={true}
-                autoplay={{
-                delay: 3000
-                }}
-            >
-                {
-                quotess?.results?.map((data, i) => (
-                    <SwiperSlide key={i}>
-                    <div className="quotes">
-                        <p>Quotes</p>
-                        <div className="quotes-inner">
-                        <i className="bi bi-quote"></i>
-                        <p>{data.quotes}</p>
+                <Swiper
+                    slidesPerView={1}
+                    loop={true}
+                    autoplay={{
+                    delay: 3000
+                    }}
+                >
+                    {
+                    quotess?.results?.map((data, i) => (
+                        <SwiperSlide key={i}>
+                        <div className="quotes">
+                            <p>Quotes</p>
+                            <div className="quotes-inner">
+                            <i className="bi bi-quote"></i>
+                            <p>{data.quotes}</p>
+                            </div>
+                            <span >{data.quoteser}</span>
+                            {/* <div className='desc'>
+                            <div dangerouslySetInnerHTML={data.quoteser}/>
+                            </div> */}
+                            <div className="line"></div>
                         </div>
-                        <span >{data.quoteser}</span>
-                        {/* <div className='desc'>
-                        <div dangerouslySetInnerHTML={data.quoteser}/>
-                        </div> */}
-                        <div className="line"></div>
-                    </div>
-                    </SwiperSlide>
-                ))
-            }
-            </Swiper>
+                        </SwiperSlide>
+                    ))
+                }
+                </Swiper>
             </div>
             
             <div className="living-header">

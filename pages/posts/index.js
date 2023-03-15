@@ -1,3 +1,4 @@
+import Search from '@/components/Search';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
@@ -8,7 +9,7 @@ const index = () => {
   let [addIndex, setAddIndex] = useState(4);
 
   const getPosts = async () => {
-    let latesturl = `http://localhost:5000/v1/posts/public/webPosts/?sortBy=_id:desc/?page=1&limit=${addIndex}`
+    let latesturl = `http://localhost:5000/v1/posts/public/webPosts/?sortBy=_id:desc&page=1&limit=${addIndex}`
     const latestPost = await ( await axios.get(latesturl)).data
     setLatestPosts(latestPost);
   }
@@ -23,6 +24,7 @@ const index = () => {
 
   return (
     <div className='single-container'>
+      <Search post={latestPosts}/>
       <div className="category_sidebar">
         <div className="latest">
           <div className="gadget-header">

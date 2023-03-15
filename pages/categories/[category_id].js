@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios';
 import Link from 'next/link';
 import { format } from 'timeago.js';
+import Search from '@/components/Search';
 
 const category = ({catPost}) => { 
   let router = useRouter();
@@ -23,48 +24,46 @@ const category = ({catPost}) => {
 
   return (
     <div className='single-container'>
+      <Search/>
       <div className="category_sidebar">
-            <div className="latest">
-                <div className="gadget-header">
-                  <h2>{post?.results[0].category.name}</h2>
-                </div>
-                <div className="latest-items">
-
-                  {
-                    post?.results?.map((data, i) => (
-                      <div className="latest-item" key={i}>
-                        <div className="latest-image">
-                          <img src={data.image} alt=""/>
+        <div className="latest">
+          <div className="gadget-header">
+            <h2>{post?.results[0].category.name}</h2>
+          </div>
+          <div className="latest-items">
+            {
+              post?.results?.map((data, i) => (
+                <div className="latest-item" key={i}>
+                  <div className="latest-image">
+                    <img src={data.image} alt=""/>
+                  </div>
+                  <div className="latest-text">
+                    <span className="style">{data.category.name}</span>
+                    <Link className='link' href={`/posts/${data.id}`}>{data.title}</Link>
+                    <p>{data.summary}</p>
+                    <div className="latest-post-owner">
+                      <div className="latest-inner">
+                        <div className="image">
+                          <img src={data.userId.image} alt="" />
                         </div>
-                        <div className="latest-text">
-                          <span className="style">{data.category.name}</span>
-                          <Link className='link' href={`/posts/${data.id}`}>{data.title}</Link>
-                          <p>{data.summary}</p>
-                          <div className="latest-post-owner">
-                            <div className="latest-inner">
-                              <div className="image">
-                                <img src={data.userId.image} alt="" />
-                              </div>
-                              <div className="latest-text-inner">
-                                <p>{data.userId.name}</p>
-                                <span>{format(data.createdAt)}</span>
-                              </div>
-                            </div>
-                            <Link className='reading' href={`/posts/${data.id}`}>KEEP READING</Link>
-                          </div>
+                        <div className="latest-text-inner">
+                          <p>{data.userId.name}</p>
+                          <span>{format(data.createdAt)}</span>
                         </div>
                       </div>
-                    ))
-                  }
-                  
+                      <Link className='reading' href={`/posts/${data.id}`}>KEEP READING</Link>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))
+            }
+            
+          </div>
+        </div>
       </div>
     </div>
   )
 }
-
-
 
 
 export default category

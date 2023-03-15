@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 
@@ -14,7 +15,7 @@ const Header = ({ setSearch }) => {
       <div className="header">
           <div className="header-left">
             <h2><span>Themes</span> Celebrity</h2>
-            <a href="/" className='link'>Home</a>
+            <Link href="/" className='link'>Home</Link>
           </div>
           <div className="header-right">
             <div className="search">

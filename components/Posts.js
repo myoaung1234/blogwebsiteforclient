@@ -24,7 +24,7 @@ const Posts = ({gadget}) => {
                     <Link href={`/categories/${data.category.id}`} style={{textDecoration: 'none'}}>
                       <span className={data.category.name}>{data.category.name}</span>
                     </Link>
-                    <Link className='link' href={`/posts/${data.id}`}><h3>{data.title}</h3></Link>
+                    <Link className='link' href={`/posts/${data.id}`}><h3>{(data.title).slice(0,50)}...</h3></Link>
                     <div className="post-inner-text">
                       <p>{data.userId.name}<span>{format(data.createdAt)}</span></p>
                     </div>

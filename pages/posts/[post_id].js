@@ -4,12 +4,15 @@ import axios from 'axios';
 import { format } from 'timeago.js';
 import Link from 'next/link';
 import Image from 'next/image';
+import Search from '@/components/Search';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const post = () => {
   const router = useRouter();
   const [post, setPost] = useState();
   const [catPost, setCatPost] = useState();
   const [popularPosts, setPopularPosts] = useState();
+  const [quotess, setQuotess] = useState();
   const [loading, setLoading] = useState()
 
   let id = router.query.post_id
@@ -17,25 +20,28 @@ const post = () => {
     setLoading(true)
     const url = `http://localhost:5000/v1/posts/public/single/${cid}`;
     const getData = await ( await axios.get(url)).data;
-    console.log("hello")
     setPost(getData)
-    const urlcat = `http://localhost:5000/v1/posts/public/webPosts/?category=${getData?.category.id}`
+    const urlcat = `http://localhost:5000/v1/posts/public/webPosts/?page=1&limit=4&category=${getData?.category.id}`
     const resultPost = await ( await axios.get(urlcat)).data
     setCatPost(resultPost)
-    let popularurl = `http://localhost:5000/v1/posts/public/webPosts?sortBy=viewCount:desc`
+    let popularurl = `http://localhost:5000/v1/posts/public/webPosts?sortBy=viewCount:desc&page=1&limit=5`
     const popularPost = await ( await axios.get(popularurl)).data
     setPopularPosts(popularPost);
     setLoading(false)
   }
 
+ 
+  
   useEffect(() => {
     if (router.asPath !== router.route) {
       getPost(id)
     }
+   
   }, [router])
 
   return (
       <div className='single-container'>
+        <Search post={popularPosts}/>
         <div className="posts_container">
           <div className="hero-section">
             <div className="hero-posts">
@@ -45,7 +51,7 @@ const post = () => {
               <div className="background"></div>
               <div className="hero-text">
                 <p>
-                  <a href="/">Home</a>
+                  <Link href="/">Home</Link>
                   <i className="bi bi-caret-right-fill"></i>
                   <Link href={`/categories/${post?.category.id}`}>{post?.category.name}</Link>
                 </p>
@@ -57,7 +63,7 @@ const post = () => {
                   </div>
                   <div className="poster-text">
                     <h3>{post?.userId.name}</h3>
-                    <span>{format(post?.createdAt)}</span>
+                    <span><p>{post?.viewCount} Views</p>{format(post?.createdAt)}</span>
                   </div>
                 </div>
               </div>
@@ -91,7 +97,7 @@ const post = () => {
                       </div>
                       <Link className='cate' href={`/categories/${data.category.id}`}>{data.category.name}</Link>
                       <div className="living-text">
-                        <Link className='link' href={`/posts/${data.id}`}>{data.title}</Link>
+                        <Link className='link' href={`/posts/${data.id}`}>{(data.title).slice(0,70)}...</Link>
                         <span><p>{data.userId.name}</p>{format(data.createdAt)}</span>
                       </div>
                     </div>
@@ -135,6 +141,7 @@ const post = () => {
                     </div>
                 </div>
             </div>
+            
           </div>
           <div className="posts_sidebar">
             <div className="picked-item">
@@ -142,34 +149,24 @@ const post = () => {
                   <h3>POPULAR</h3>
                   <span>View All</span>
                 </div> 
+                  
                 {
-                  loading ?
-                  <div className='loading' style={{opacity: 0.8}}>
-                    <img src="1488.gif" alt="Loading..."/>
-                  </div>
-                  :
-                  <div className='loading' style={{opacity: 0, zIndex: -999}}>
-                    <img src="1488.gif" alt="Loading..."/>
-                  </div>
-                }
-                  <div>
-                    {
-                      popularPosts?.results?.slice(0, 5).map((data, i) => (
-                        <div className="right-picked-item" key={i}>
-                          <div className="image">
-                            <img src={data.image} alt=""/>
-                          </div>
-                          <div className="text-right">
-                            <Link className='link' href={`/posts/${data.id}`}>{data.title}</Link>
-                            <div className="view">
-                              <span style={{color: 'blue'}}>{data.viewCount} views</span>
-                              <span>{format(data.createdAt)}</span>
-                            </div>
-                          </div>
+                  popularPosts?.results?.map((data, i) => (
+                    <div className="right-picked-item" key={i}>
+                      <div className="image">
+                        <img src={data.image} alt=""/>
+                      </div>
+                      <div className="text-right">
+                        <Link className='link' href={`/posts/${data.id}`}>{(data.title).slice(0, 50)}...</Link>
+                        <div className="view">
+                          <span style={{color: 'blue'}}>{data.viewCount} views</span>
+                          <span>{format(data.createdAt)}</span>
                         </div>
-                      ))
-                    }
-                  </div>
+                      </div>
+                    </div>
+                  ))
+                }
+                  
               </div>
           </div>
         </div>
