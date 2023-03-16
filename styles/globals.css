@@ -72,18 +72,27 @@ a {
 .header .header-left {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-right: 40px;
   gap: 1.5rem;
 }
 
-.header .header-left span {
-  color: #3e56c2;
+.header-left .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
 }
 
 .header .header-left h2 {
   font-family: 'Solitreo';
-  color: #333;
-  font-size: 18px;
+  color: #3e56c2;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.header .header-left img {
+  width: 40px;
 }
 
 .header .header-left a {
@@ -1907,12 +1916,11 @@ button:disabled{
     padding: 5px 20px;
     margin-bottom: 10px;
   }
-  .header .header-left {
-    justify-content: space-between;
-    gap: 0.4rem;
+  .header .header-left img {
+    width: 30px;
   }
   .header .header-left h2 {
-    font-size: 15;
+    font-size: 15px;
   }
   .header-right {
     gap: 0.4rem;

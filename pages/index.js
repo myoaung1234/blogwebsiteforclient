@@ -102,7 +102,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Themes Celebrity</title>
+        <title>Paparazzi</title>
       </Head>
       <div className="container">
         <Search post={posts}/>

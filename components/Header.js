@@ -14,7 +14,10 @@ const Header = ({ setSearch }) => {
     <>
       <div className="header">
           <div className="header-left">
-            <h2><span>Themes</span> Celebrity</h2>
+            <div className="logo">
+              <img src="paparazzi.png" alt=""/>
+              <h2>PAPARAZZI</h2>
+            </div>
             <Link href="/" className='link'>Home</Link>
           </div>
           <div className="header-right">
