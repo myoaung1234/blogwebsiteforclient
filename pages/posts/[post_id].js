@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Search from '@/components/Search';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { apiURL } from '@/config/apiURL';
 
 const post = () => {
   const router = useRouter();
@@ -18,13 +19,13 @@ const post = () => {
   let id = router.query.post_id
   const getPost = async (cid) => {
     setLoading(true)
-    const url = `http://localhost:5000/v1/posts/public/single/${cid}`;
+    const url = `${apiURL}/posts/public/single/${cid}`;
     const getData = await ( await axios.get(url)).data;
     setPost(getData)
-    const urlcat = `http://localhost:5000/v1/posts/public/webPosts/?page=1&limit=4&category=${getData?.category.id}`
+    const urlcat = `${apiURL}/posts/public/webPosts/?page=1&limit=4&category=${getData?.category.id}`
     const resultPost = await ( await axios.get(urlcat)).data
     setCatPost(resultPost)
-    let popularurl = `http://localhost:5000/v1/posts/public/webPosts?sortBy=viewCount:desc&page=1&limit=5`
+    let popularurl = `${apiURL}/posts/public/webPosts?sortBy=viewCount:desc&page=1&limit=5`
     const popularPost = await ( await axios.get(popularurl)).data
     setPopularPosts(popularPost);
     setLoading(false)

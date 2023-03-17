@@ -4,6 +4,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { format } from 'timeago.js';
 import Search from '@/components/Search';
+import { apiURL } from '@/config/apiURL';
 
 const category = ({catPost}) => { 
   let router = useRouter();
@@ -11,7 +12,7 @@ const category = ({catPost}) => {
   let category_id = router?.query?.category_id
 
   const getPost = async (cid) => {
-    const url = `http://localhost:5000/v1/posts/public/webPosts/?category=${cid}`
+    const url = `${apiURL}/posts/public/webPosts/?category=${cid}`
     const resultCategories = await ( await axios.get(url)).data;
     setPost(resultCategories)
   }

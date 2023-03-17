@@ -1,2 +1,2 @@
 
-export let apiURL = `http://172.104.191.239:5000/v1`;
+export let apiURL = `https://myoaung.codingburma.com/v1`;
