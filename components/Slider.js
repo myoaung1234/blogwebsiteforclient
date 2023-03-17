@@ -5,6 +5,7 @@ import axios from 'axios'
 import React, { useState, useEffect} from 'react'
 import { format } from 'timeago.js'
 import Link from 'next/link';
+import { apiURL } from '@/config/apiURL';
 
 const Slider = () => {
   SwiperCore.use([Autoplay])
@@ -12,7 +13,7 @@ const Slider = () => {
   
 
   const getPosts = async () => {
-    let url = `http://localhost:5000/v1/posts/public/webPosts/?sortBy=createdAt:desc`
+    let url = `${apiURL}/posts/public/webPosts/?sortBy=createdAt:desc`
     const resultPost = await ( await axios.get(url)).data
     setPosts(resultPost);
   }

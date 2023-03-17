@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { format } from 'timeago.js';
 import Link from 'next/link';
 import Search from '@/components/Search';
+import { apiURL } from '@/config/apiURL';
 
 
 export default function Home() {
@@ -31,38 +32,41 @@ export default function Home() {
   //let [toggleCat, setToggleCat] = useState(true);
   let [toggle, setToggle] = useState(true)
   let [pickLoading, setPickLoading] = useState(false)
+
+  
   
   const getQuotes = async () => {
-    const url = `http://localhost:5000/v1/quotess/public/webQuotess?sortBy=_id:desc`;
+    const url = `${apiURL}/quotess/public/webQuotess?sortBy=_id:desc`;
     const resultQuotes = await ( await axios.get(url)).data
+    
     setQuotess(resultQuotes);
   }
 
   const getPosts = async () => {
-    let url = `http://localhost:5000/v1/posts/public/webPosts`
+    let url = `${apiURL}/posts/public/webPosts`
     const resultPost = await ( await axios.get(url)).data
     setPosts(resultPost);
-    let latesturl = `http://localhost:5000/v1/posts/public/webPosts/?sortBy=_id:desc&page=1&limit=6`
+    let latesturl = `${apiURL}/posts/public/webPosts/?sortBy=_id:desc&page=1&limit=6`
     const latestPost = await ( await axios.get(latesturl)).data
     setLatestPosts(latestPost);
   }
 
   const getCategories = async (id, pickedId) => {
     setPickLoading(true)
-    const url = `http://localhost:5000/v1/categories/public/webCategories`;
+    const url = `${apiURL}/categories/public/webCategories`;
     const resultCategories = await ( await axios.get(url)).data
     setCategory(resultCategories);
 
-    let livingURL = `http://localhost:5000/v1/posts/public/webPosts/?page=1&limit=5&category=${resultCategories?.results[0].id}`
+    let livingURL = `${apiURL}/posts/public/webPosts/?page=1&limit=5&category=${resultCategories?.results[0].id}`
     const resultPost = await ( await axios.get(livingURL)).data
     setLivingPosts(resultPost);
 
-    let gadgetURL = `http://localhost:5000/v1/posts/public/webPosts?category=${resultCategories?.results[1].id}`
+    let gadgetURL = `${apiURL}/posts/public/webPosts?category=${resultCategories?.results[1].id}`
     const gadgetPost = await ( await axios.get(gadgetURL)).data
     setGadgetPosts(gadgetPost);
 
     let Id = id ? id : resultCategories?.results[2].id
-    let changeURL = `http://localhost:5000/v1/posts/public/webPosts/?page=1&limit=5&category=${Id}`
+    let changeURL = `${apiURL}/posts/public/webPosts/?page=1&limit=5&category=${Id}`
     const changePost = await ( await axios.get(changeURL)).data
     setChangePost(changePost);
     
@@ -280,3 +284,4 @@ export default function Home() {
     </>
   )
 }
+

@@ -147,7 +147,7 @@ const post = () => {
             <div className="picked-item">
                 <div className="right-header">
                   <h3>POPULAR</h3>
-                  <span>View All</span>
+                  
                 </div> 
                   
                 {
