@@ -57,7 +57,7 @@ export default function Home() {
     const resultCategories = await ( await axios.get(url)).data
     setCategory(resultCategories);
 
-    let livingURL = `${apiURL}/posts/public/webPosts/?page=1&limit=5&category=${resultCategories?.results[0].id}`
+    let livingURL = `${apiURL}/posts/public/webPosts/?sortBy=_id:desc&page=1&limit=5&category=${resultCategories?.results[0].id}`
     const resultPost = await ( await axios.get(livingURL)).data
     setLivingPosts(resultPost);
 
@@ -66,7 +66,7 @@ export default function Home() {
     setGadgetPosts(gadgetPost);
 
     let Id = id ? id : resultCategories?.results[2].id
-    let changeURL = `${apiURL}/posts/public/webPosts/?page=1&limit=5&category=${Id}`
+    let changeURL = `${apiURL}/posts/public/webPosts/?sortBy=_id:desc&page=1&limit=5&category=${Id}`
     const changePost = await ( await axios.get(changeURL)).data
     setChangePost(changePost);
     
