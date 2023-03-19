@@ -1,4 +1,5 @@
 import Search from '@/components/Search';
+import { apiURL } from '@/config/apiURL';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
@@ -9,7 +10,7 @@ const index = () => {
   let [addIndex, setAddIndex] = useState(4);
 
   const getPosts = async () => {
-    let latesturl = `http://localhost:5000/v1/posts/public/webPosts/?sortBy=_id:desc&page=1&limit=${addIndex}`
+    let latesturl = `${apiURL}/posts/public/webPosts/?sortBy=_id:desc&page=1&limit=${addIndex}`
     const latestPost = await ( await axios.get(latesturl)).data
     setLatestPosts(latestPost);
   }
